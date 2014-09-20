@@ -1,17 +1,19 @@
 {
-    "name": "nerdamigo-angular-urlStateHelper",
-    "desciption": "Automatically binds querystring parameters to scope variables",
-    "version": "0.0.1",
-    "main": "nerdamigo.angular.urlStateHelper.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nerdamigo/urlStateHelper"
-    },
-    "dependencies": { },
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "grunt-contrib-concat": "^0.5.0",
-        "grunt-contrib-jshint": "^0.10.0",
-        "grunt-contrib-uglify": "^0.6.0"
-    }
+  "name": "nerdamigo-angular-urlStateHelper",
+  "desciption": "Automatically binds querystring parameters to scope variables",
+  "version": "0.0.1",
+  "main": "nerdamigo.angular.urlStateHelper.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nerdamigo/urlStateHelper"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jasmine": "^0.8.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "karma": "^0.12.23"
+  }
 }
