@@ -44,9 +44,17 @@ module.exports = function (grunt) {
 		},
 		karma: {
 			unit: {
-				configFile: 'testing/karma.unit.config.js',
+				configFile: 'testing/unit/karma.unit.config.js',
 				autoWatch: false,
 				singleRun: true
+			}
+		},
+		connect: {
+			devserver: {
+				options: {
+					port: 8080,
+					base: 'demo/'
+				}
 			}
 		}
 	});
@@ -55,10 +63,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-karma');
 
 	grunt.registerTask('test', ['jshint', 'karma:unit', 'watch:test']);
 
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'watch:dev']);
+	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'connect:devserver', 'watch:dev']);
 
 };
