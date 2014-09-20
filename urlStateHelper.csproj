@@ -48,7 +48,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="demo\app\angular-ui-router.min.js" />
+    <Content Include="demo\app\app.js" />
+    <Content Include="demo\app\home\home.html" />
+    <Content Include="demo\urlStateHelper.css" />
+    <Content Include="testing\angular.js" />
+    <Content Include="demo\index.html" />
     <Content Include="gruntfile.js" />
+    <Content Include="src\service\urlStateHelper.js" />
+    <Content Include="testing\unit\angular-mocks.js" />
+    <Content Include="testing\unit\karma.unit.config.js" />
+    <Content Include="testing\unit\urlStateHelper.tests.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +71,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="testing\e2e\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
