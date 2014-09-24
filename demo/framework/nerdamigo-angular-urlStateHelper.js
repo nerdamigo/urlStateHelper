@@ -1,4 +1,4 @@
-﻿(function(angular, undefined) {
+(function(angular, undefined) {
 	'use strict';
 	var app = angular.module('nerdamigo.urlStateHelper', []);
 

@@ -1,4 +1,4 @@
-﻿var app = angular.module('demoApp', ['ui.router']);
+﻿var app = angular.module('demoApp', ['ui.router', 'nerdamigo.urlStateHelper']);
 
 app.config(['$locationProvider', '$stateProvider', function ($locationProvider, $stateProvider) {
 	$locationProvider.html5Mode(true);
@@ -6,12 +6,22 @@ app.config(['$locationProvider', '$stateProvider', function ($locationProvider, 
 	$stateProvider.state('home', {
 		url: '/',
 		views: {
-			'root': {
+			'': {
 				templateUrl: 'app/home/home.html',
 				controller: ['$scope', '$state', function ($scope, $state) {
-					$scope.test = new Date();
+
 				}]
 			}
 		}
-	})
-}])
+	});
+
+	$stateProvider.state('demo', {
+		url: '/demo',
+		abstract: true,
+		views: {
+			'': {
+				template: '<div ui-view>huh?</div>'
+			}
+		}
+	});
+}]);

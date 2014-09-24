@@ -1,3 +1,15 @@
 ﻿<h1>Nerdamigo's Url State Helper!</h1>
-<p>This project's goal is to help with automatic url persistence of state tracking objects</p>
-<p>Look to the main menu for different examples of what it can do!</p>
+<p>
+	When you need to easily persist some level of state such that users sharing urls can easily return to the same
+	place, you need Nerdamigo's url state helper.
+</p>
+<p>
+	Registering an object for persistence to the querystring is as simple as a call to <code>$urlStateHelper.register($scope, 'paramName')</code>.
+	A property is added to $scope, and until the $scope is $destroyed, the object will persist.
+</p>
+<p>
+	Any <em>external</em> changes to the url (think back/forward) cause an <code>$urlStateHelperExternalChange</code> event to be broadcast from $rootScope
+</p>
+<p>
+	To see it in action, check out the demos in the menu above!
+</p>

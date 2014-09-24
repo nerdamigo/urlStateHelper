@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+	var rewriteRulesSnippet = require('grunt-connect-rewrite/lib/utils').rewriteRequest;
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
@@ -21,7 +22,7 @@ module.exports = function (grunt) {
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+			files: ['Gruntfile.js', 'src/**/*.js', 'demo/app/**/*.js', 'test/**/*.js'],
 			options: {
 				// options here to override JSHint defaults
 				globals: {
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
 		watch: {
 			dev: {
 				files: ['<%= jshint.files %>'],
-				tasks: ['jshint', 'concat', 'uglify']
+				tasks: ['jshint', 'concat', 'uglify', 'copy:demo']
 			},
 			test: {
 				files: ['<%= jshint.files %>'],
@@ -53,8 +54,47 @@ module.exports = function (grunt) {
 			devserver: {
 				options: {
 					port: 8080,
-					base: 'demo/'
+					base: 'demo/',
+					middleware: function (connect, options) {
+						var middlewares = [];
+
+						// RewriteRules support
+						middlewares.push(rewriteRulesSnippet);
+
+						if (!Array.isArray(options.base)) {
+							options.base = [options.base];
+						}
+
+						var directory = options.directory || options.base[options.base.length - 1];
+						options.base.forEach(function (base) {
+							// Serve static files.
+							middlewares.push(connect.static(base));
+						});
+
+						// Make directory browse-able.
+						middlewares.push(connect.directory(directory));
+
+						return middlewares;
+					}
 				}
+			},
+			rules: [
+				{
+					from: '^$|^/[^\\.]*$',
+					to: '/index.html'
+				}
+			]
+		},
+		copy: {
+			demo: {
+				files: [
+					{ expand: true, flatten: true, filter: 'isFile', cwd: 'dist/', src: ['**'], dest: 'demo/framework/' }
+				]
+			}
+		},
+		configureRewriteRules: {
+			options: {
+				rulesProvider: 'connect.rules'
 			}
 		}
 	});
@@ -64,10 +104,12 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-connect-rewrite');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-karma');
 
 	grunt.registerTask('test', ['jshint', 'karma:unit', 'watch:test']);
 
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'connect:devserver', 'watch:dev']);
+	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'copy:demo', 'configureRewriteRules', 'connect:devserver', 'watch:dev']);
 
 };
